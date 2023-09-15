@@ -2,6 +2,9 @@
 
 ✨🥜Wayne-and-Robert🥜 ✨
 
+## 1. Overview
+Wayne and Robert are optimistic that "Share Smiles" will be a hit among the student community, offering them an enhanced online collaborative platform. Within this, it can help us familiarize with and apply platforms and technologies such as MySQL, MongoDB, Spring Boot, Redis, and Sentry. They sincerely hope that everyone will appreciate the effort and love the experience😊.
+
 # Contents
 
 | Name & Description   | HTTP method | Data Types                                           | Exceptions                                                   |

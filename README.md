@@ -6,7 +6,7 @@
 ## 1. Overview
 Wayne and Robert are optimistic that "Share Smiles" will be a hit among the student community, offering them an enhanced online collaborative platform. Within this, it can help us familiarize with and apply platforms and technologies such as MySQL, MongoDB, Spring Boot, Redis, and Sentry. They sincerely hope that everyone will appreciate the effort and love the experience😊.
 
-## 2. Interface
+## 2. Interface (v1.1)
 | Name & Description   | HTTP method | Data Types                                           | Exceptions                                                   |
 |----------------------|-------------|------------------------------------------------------|--------------------------------------------------------------|
 | user/register<br>Given a user's first and last name, email address, and password, creates a new account for them and returns a new authUserId.        | POST        | **Body Parameters:**<br>( email, name, password )<br>**Return type if no error:**<br>{ token, authUserId } | **400 Error** when any of:<br>· email entered is not a valid email<br>· email is already being used by another user<br>· length of password is less than 6 characters<br>· length of name is not between 1 and 50 characters 

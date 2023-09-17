@@ -9,8 +9,7 @@ import com.sharesmiles.model.User;
 public interface UserRepository extends JpaRepository<User, Long>{
     // 继承JpaRepository的所有操作方法，比如save(), findAll(), delete()等
     // JpaRepository接受两个范型参数，第一个代表操作的实体类型: User, 第二个代表实体类主键的数据类型: Long
-    Optional<User> findByUsername(String username); 
     // 根据username字段查询User的操作
     // Optional<User>: 查询结果可能存在，也可能不存在
-    
+    Optional<User> findByUsername(String username); 
 }

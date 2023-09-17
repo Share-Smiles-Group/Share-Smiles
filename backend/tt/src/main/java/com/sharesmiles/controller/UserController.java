@@ -13,7 +13,7 @@ import com.sharesmiles.service.UserService;
 // Controller类作为应用的HTTP层，直接与客户端交互，接收HTTP请求，调用服务层的方法处理业务逻辑，然后返回响应。
 @RestController
 // Spring Web的注解，是一个RESTful的控制器。处理HTTP请求，返回JSON或其他RESTful格式的响应。
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 // 所有在这个控制器中定义的请求映射（Request Mapping）都将以/api/users为基础路径。
 public class UserController {
     @Autowired

@@ -1,4 +1,4 @@
-package com.sharesmiles.tt;
+package com.sharesmiles;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,9 +1,15 @@
 package com.sharesmiles.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sharesmiles.dto.LoginRequest;
@@ -23,13 +29,34 @@ public class UserController {
 
     // 以POST方法发送到/api/users/register的HTTP请求
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.register(user);
+    public ResponseEntity<User> register(@RequestBody User user) {
+        User registeredUser = userService.userRegister(user);
+        return new ResponseEntity<User>(registeredUser, HttpStatus.CREATED);
     }
 
     // 以POST方法发送到/api/users/login的HTTP请求
     @PostMapping("/login")
-    public boolean login(@RequestBody LoginRequest request) {
-        return userService.login(request.getUsername(), request.getPassword());
+    public ResponseEntity<User> login(@RequestBody LoginRequest request) {
+        User loggedInUser = userService.userLogin(request.getUsername(), request.getPassword());
+        return new ResponseEntity<User>(loggedInUser, HttpStatus.OK);
+    }
+
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<User> userProfile(@PathVariable Long UserId) {
+        User user = userService.userProfile(UserId);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/setname/{userId}")
+    public ResponseEntity<String> userSetname(@PathVariable Long userId, @RequestParam String newName) {
+        userService.userSetname(userId, newName);
+        return new ResponseEntity<>("Name updated successfully.", HttpStatus.OK);
+    }
+
+    @PutMapping("/setemail/{userId}")
+    public ResponseEntity<String> userSetEmail(@PathVariable Long userId, @RequestParam String newEmail) {
+        userService.userSetEmail(userId, newEmail);
+        return new ResponseEntity<>("Email updated successfully.", HttpStatus.OK);
+        
     }
 }

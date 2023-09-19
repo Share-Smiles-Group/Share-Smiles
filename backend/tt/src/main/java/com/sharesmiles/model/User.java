@@ -20,14 +20,6 @@ public class User {
     private String password;
     private String email;
 
-    // Constructors
-    public User(Long uid, String username, String password, String email) {
-        this.uid = uid;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
     // Getters
     public Long getId() {
         return uid;

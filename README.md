@@ -22,14 +22,15 @@ Wayne and Robert are optimistic that "Share Smiles" will be a hit among the stud
 
 ### 2.2 Redis & Zookeeper 
 #### 2.2.1 Redis
-｜Scenario| details|
+Scenario| details
 |---------|--------|
-|Caching| Frequently queried users, posts, and topics cached in Redis to reduce the database load｜
-|Counters| Redis's atomic update counters like likes or views on posts or comments |
+|Caching| Frequently queried users, posts, and topics cached in Redis to reduce the database load|
+|Counters| Redis's atomic update counters like likes or views on posts or comments|
 |Leaderboards| Redis's Sorted Sets used for implementing sort topics or posts based on certain metrics|
-|Real-time Analytics| 
+|Real-time Analytics| Using Redis Pub/Sub, the application can publish to a channel whenever a user views a post|
 
 #### 2.2.2 Zookeeper
-｜Scenario| details|
-|---------|--------|
-|Distributed Locks|ZooKeeper can be used to implement distributed locks in scenarios where multiple services or nodes need to access a shared resource<br> Displaying the top 10 most-viewed posts｜
+Scenario| details
+|---------|--------
+|Distributed Locks|ZooKeeper can be used to implement distributed locks in scenarios where multiple services or nodes need to access a shared resource<br> - Displaying the top 10 most-viewed posts|
+

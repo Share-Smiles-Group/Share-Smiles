@@ -18,12 +18,17 @@ public class PostService {
     @Autowired
     private TopicRepository topicRepository;
 
-    private boolean isValidPost(String postName) {
+    private boolean isValidPostName(String postName) {
         return !(postName.length() < 1 || postName.length() > 20);
     }
+
+    public List<Post> getPostsByIds(List<Long> ids) {
+        return postRepository.findByIdIn(ids);
+    }
+
     // 创建一个新的Post
     public Post createPost(Post post) {
-        if (!isValidPost(post.getPostname()))
+        if (!isValidPostName(post.getPostname()))
             throw new IllegalArgumentException("Post name should between 1 and 20 characters");
             
         return postRepository.save(post);

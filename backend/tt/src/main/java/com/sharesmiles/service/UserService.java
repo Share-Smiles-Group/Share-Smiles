@@ -17,10 +17,6 @@ import java.util.regex.Pattern;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    // 一个调用repository的例子
-    // public Optional<User> findByUsername(String username) {
-    //     return userRepository.findByUsername(username);
-    // }
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
@@ -59,7 +55,7 @@ public class UserService {
         // 根据名字找到该用户
         User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
         // 检查用户密码是否与输入密码一致
-        if (passwordEncoder.matches(password, user.getPassword()))
+        if (!passwordEncoder.matches(password, user.getPassword()))
             throw new BadCredentialsException("Invalid password");
 
         return user;
@@ -77,7 +73,7 @@ public class UserService {
     public User userSetname(Long userId, String newName) {
         // 1. 验证名字格式是否有效
         if (!isValidName(newName))
-            throw new IllegalArgumentException("Name should be betwwne 1 to 50 characters");
+            throw new IllegalArgumentException("Name should be between 1 to 50 characters");
 
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
         user.setUsername(newName);

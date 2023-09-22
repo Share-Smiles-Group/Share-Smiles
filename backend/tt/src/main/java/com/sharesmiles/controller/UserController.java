@@ -57,6 +57,5 @@ public class UserController {
     public ResponseEntity<String> userSetEmail(@PathVariable Long userId, @RequestParam String newEmail) {
         userService.userSetEmail(userId, newEmail);
         return new ResponseEntity<>("Email updated successfully.", HttpStatus.OK);
-        
     }
 }

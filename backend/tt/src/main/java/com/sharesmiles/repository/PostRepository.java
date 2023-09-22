@@ -8,4 +8,5 @@ import com.sharesmiles.model.Post;
 
 public interface PostRepository extends JpaRepository<Post, Long>{
     List<Post> findByTopicIdOrderByHeatDesc(Long topicId);
+    List<Post> findByIdIn(List<Long> ids);
 }

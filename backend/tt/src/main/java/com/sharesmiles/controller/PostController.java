@@ -41,8 +41,8 @@ public class PostController {
 
     @GetMapping("/tops/{topNums}")
     public ResponseEntity<List<Post>> getTopPosts(@PathVariable int topNums) {
-        // 获取前10个热度最高的post
-        List<Long> topPostIds = postRankingService.getTopPostsByHeat(topNums);
+        // 获取前20个热度最高的post
+        List<Long> topPostIds = postRankingService.getTopPostsByHeat();
         List<Post> topPosts = postService.getPostsByIds(topPostIds);
         return new ResponseEntity<List<Post>>(topPosts, HttpStatus.OK);
     }

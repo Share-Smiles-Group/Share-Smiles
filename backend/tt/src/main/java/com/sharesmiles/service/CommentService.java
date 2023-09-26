@@ -12,6 +12,9 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired 
+    private PostRankingService postRankingService;
+
     private boolean isValidComment(String content) {
         return !(content.length() < 1 || content.length() > 1000);       
     }
@@ -20,7 +23,14 @@ public class CommentService {
         // 检查comment是否符合格式
         if (!isValidComment(comment.getContent()))
             throw new IllegalArgumentException("comment is not valid");
-        return commentRepository.save(comment);
+        // 将comment加入到数据库中
+        Comment savedComment = commentRepository.save(comment);
+
+        // 为comment所在的post增加1点热度
+        Long postId = comment.getPost().getPostId();
+        postRankingService.increaseHeat(postId, 1);
+
+        return savedComment;
     }
 
     public Comment commentEdit(Long uid, Long mid, String newContent) {

@@ -1,10 +1,8 @@
 package com.sharesmiles.model;
 
 import java.time.LocalDateTime;
-// import java.util.List;
 
 import javax.persistence.GenerationType;
-// import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,8 +11,6 @@ import javax.persistence.Id;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-// import javax.persistence.OneToMany;
 
 @Entity
 public class Post {
@@ -36,9 +32,6 @@ public class Post {
     @JoinColumn(name = "User_id")
     private User creator;
 
-    // @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    // private List<Comment> comments; 
-
     // Getters
     public Long getPostId() {
         return postId;
@@ -58,6 +51,7 @@ public class Post {
     public Integer getHeat() {
         return heat;
     }
+
 
     // Setters
     public void setPostId(Long postId) {

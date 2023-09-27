@@ -89,9 +89,10 @@ public class UserService {
 
     public User userSetEmail(Long userId, String newEmail) {
         // 1. 验证邮箱格式是否有效
-        if (!isValidEmail(newEmail)) 
+        if (!isValidEmail(newEmail)) {
             // 非法参数异常，newEmail参数不满足该方法的预期格式或标准
             throw new IllegalArgumentException("Invalid email format");
+        }
 
         // 2. 检查电子邮箱是否已被使用
         Optional<User> existingUser = userRepository.findByEmail(newEmail);

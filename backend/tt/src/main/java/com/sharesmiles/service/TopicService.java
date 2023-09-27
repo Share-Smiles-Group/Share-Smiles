@@ -18,5 +18,4 @@ public class TopicService {
     public List<Topic> searchTopicByName(String keyword) {
         return topicRepository.findByTopicnameContainingIgnoreCaseOptional(keyword);
     }
-
 }

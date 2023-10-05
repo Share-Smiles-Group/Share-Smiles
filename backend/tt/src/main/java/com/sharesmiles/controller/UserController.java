@@ -43,7 +43,7 @@ public class UserController {
 
     @GetMapping("/profile/{userId}")
     public ResponseEntity<User> userProfile(@PathVariable Long UserId) {
-        User user = userService.userProfile(UserId);
+        User user = userService.getUserById(UserId);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 

@@ -15,14 +15,14 @@ public class User {
     // GenerationType.IDENTITY 利用数据库本身的递增机制
     // 当一个新的实体被持久化（保存到数据库）时，ID字段会被留空。当这个实体真正被插入到数据库时，数据库会自动为这个ID字段生成一个新的、唯一的值
     // 性能：这种策略依赖于数据库的机制，所以它通常具有很好的性能，尤其是在高并发的情况下
-    private Long uid;
+    private Long userId;
     private String username;
     private String password;
     private String email;
 
     // Getters
     public Long getId() {
-        return uid;
+        return userId;
     }
     public String getUsername() {
         return username;
@@ -35,8 +35,8 @@ public class User {
     }
 
     // Setters
-    public void setId(Long id) {
-        this.uid = id;
+    public void setId(Long userId) {
+        this.userId = userId;
     }
     public void setUsername(String username) {
         this.username = username;

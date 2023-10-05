@@ -11,6 +11,9 @@ import com.sharesmiles.repository.CommentRepository;
 import com.sharesmiles.repository.PostRepository;
 import com.sharesmiles.repository.TopicRepository;
 
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,9 @@ public class PostService {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private Redisson redisson;
 
     // 将频繁使用的post储存到内存
     @Autowired
@@ -55,7 +61,19 @@ public class PostService {
         if (post == null)  
             post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("Post not found"));
         
-        postAccessCount.put(postId, postAccessCount.getOrDefault(postId, 0) + 1);
+        // 获取分布式锁
+        RLock lock = redisson.getLock("postAccessCountLock:" + postId);
+        lock.lock();
+        try {
+            // 使用Redis的原子操作来增加热度
+            redisTemplate.opsForValue().increment("postAccessCount:" + postId, 1);
+            
+            // 在锁的保护下更新postAccessCount map
+            postAccessCount.put(postId, postAccessCount.getOrDefault(postId, 0) + 1);
+        } finally {
+            // 释放锁
+            lock.unlock(); 
+        }
         return post;
     }
 

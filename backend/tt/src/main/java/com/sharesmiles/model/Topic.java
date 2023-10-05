@@ -11,14 +11,14 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long topicId;
-    private String topicname;
+    private String topicName;
 
     // Getters
     public Long getCid() {
         return topicId;
     }
     public String getTopicname() {
-        return topicname;
+        return topicName;
     }
 
     // Setters
@@ -26,6 +26,6 @@ public class Topic {
         this.topicId = topicId;
     }
     public void setTopicname(String Topicname) {
-        this.topicname = Topicname;
+        this.topicName = Topicname;
     }
 }

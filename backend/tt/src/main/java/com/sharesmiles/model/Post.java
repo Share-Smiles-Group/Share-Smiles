@@ -22,7 +22,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long postId;
-    private String postname;
+    private String postName;
     private Integer heat = 0;
 
     @Column(name = "createed_at")
@@ -44,7 +44,7 @@ public class Post {
         return postId;
     }
     public String getPostname() {
-        return postname;
+        return postName;
     }
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -63,8 +63,8 @@ public class Post {
     public void setPostId(Long postId) {
         this.postId = postId;
     }
-    public void setPostname(String postname) {
-        this.postname = postname;
+    public void setPostname(String postName) {
+        this.postName = postName;
     }
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;

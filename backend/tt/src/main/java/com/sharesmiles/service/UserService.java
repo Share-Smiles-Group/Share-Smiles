@@ -5,9 +5,11 @@ import com.sharesmiles.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.authentication.BadCredentialsException;
 
+import java.time.Duration;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -17,6 +19,9 @@ import java.util.regex.Pattern;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RedisTemplate<String, User> userRedisTemplate;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
@@ -61,8 +66,20 @@ public class UserService {
         return user;
     }
 
-    public User userProfile(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+    public User getUserById(Long userId) {
+        // 先从redis获取用户信息
+        User user = userRedisTemplate.opsForValue().get("user" + userId);
+
+        //  如果没有在redis里面得到用户数据，从数据库里面获取
+        if (user == null) {
+            user = userRepository.findById(userId).orElse(null);
+
+            if (user != null) {
+                String redisKey = "user:" + userId;
+                userRedisTemplate.opsForValue().set(redisKey, user, Duration.ofDays(1));
+            }
+        }
+
         return user;
     }
 

@@ -1,13 +1,15 @@
 package com.sharesmiles.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 // 表示该类是一个实体类，它将会映射到数据库中的一个表，告诉JPA这个类应该被持久化
-public class User {
+public class User implements Serializable {
     @Id 
     // 表示该字段是实体类的唯一标识符，对应于数据库表中的主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)

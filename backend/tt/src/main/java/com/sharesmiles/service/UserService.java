@@ -5,8 +5,10 @@ import com.sharesmiles.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.BadCredentialsException;
 
 import java.time.Duration;
@@ -16,11 +18,13 @@ import java.util.regex.Pattern;
 // 服务层（Service Layer）类，服务层负责处理应用的业务逻辑，调用数据访问层（Data Access Layer）来与数据库进行交互。
 // UserService类是应用的服务层部分，负责处理与用户相关的业务逻辑。例如，用户注册逻辑、查找用户等。
 // 调用userRepository方法，与数据库进行交互，意味着业务逻辑和数据访问逻辑是分离的，使代码更加模块化。
+@Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
+    @Qualifier("userRedisTemplate")
     private RedisTemplate<String, User> userRedisTemplate;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -56,13 +60,21 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User userLogin(String email, String password) {
+    public User userLoginByEmail(String email, String password) {
         // 根据名字找到该用户
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User with email not found"));
         // 检查用户密码是否与输入密码一致
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new BadCredentialsException("Invalid password");
 
+        return user;
+    }
+
+    public User userLoginByUsername(String username, String password) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User with username not found"));
+        if (!passwordEncoder.matches(password, user.getPassword()))
+            throw new BadCredentialsException("Invalid password");
+        
         return user;
     }
 

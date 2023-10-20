@@ -1,21 +1,23 @@
 package com.sharesmiles.dto;
 
-public class LoginRequest {
-    private String username;
+public class LoginRequestByEmail {
+    private String email;
     private String password;
 
     // Getters
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
+    public String getEmail() {
+        return email;
     }
 
-    // Setters
     public String getPassword() {
         return password;
     }
+
+    // Setters
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }

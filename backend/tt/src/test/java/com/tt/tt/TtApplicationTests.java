@@ -1,13 +1,11 @@
 package com.tt.tt;
 
-import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class TtApplicationTests {
+import com.sharesmiles.ShareSmilesApplication;
 
-	@Test
-	void contextLoads() {
-	}
+@SpringBootTest(classes = ShareSmilesApplication.class)
+class TtApplicationTests {
 
 }

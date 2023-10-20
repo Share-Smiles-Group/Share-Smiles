@@ -5,7 +5,8 @@
 ## 1. Overview
 Wayne and Robert are optimistic that "Share Smiles" will be a hit among the student community, offering them an enhanced online collaborative platform. Within this, it can help us familiarize with and apply platforms and technologies such as MySQL, MongoDB, Spring Boot, Redis, and Sentry. They sincerely hope that everyone will appreciate the effort and love the experience😊.
 
-# Contents
+## 2. Backend Specification
+### 2.1. functionality implementation
 
 | Name & Description   | HTTP method | Data Types                                           | Exceptions                                                   |
 |----------------------|-------------|------------------------------------------------------|--------------------------------------------------------------|
@@ -19,3 +20,18 @@ Wayne and Robert are optimistic that "Share Smiles" will be a hit among the stud
 | `channel/messages`<br>Given a channel with ID channelId that the authorised user is a member of, returns up to 50 messages between index start and "end".       | GET        | **Body Parameters:**<br>`( channelId, start, end )`<br>**Return type if no error:**<br>`{ messages }` | **400 Error** when any of:<br>· channelId does not refer to a valid channel
 | `message/send`<br>Sends a message from the authorised user to the channel specified by channelId. Note: Each message should have its own unique ID, i.e. no messages should share an ID with another message, even if that other message is in a different channel or DM.       | POST        | **Body Parameters:**<br>`( channelId, message )`<br>**Return type if no error:**<br>`{ messageId }` | **400 Error** when:<br>· channelId does not refer to a valid channel<br>·length of message is less than 1 or over 1000 characters
 | `message/edit`<br>Given a message with ID messageId, updates its text with new text given in message. If the new message is an empty string, the message is deleted.       | PUT        | **Body Parameters:**<br>`( Uid, messageId, message )`<br>**Return type if no error:**<br>`{ messageId }` | **400 Error** when:<br>· length of message is over 1000 characters<br>·messageId does not refer to a valid message | **403 Error** when: <br>message was not sent by this user
+
+### 2.2 Redis & Zookeeper 
+#### 2.2.1 Redis
+Scenario| details
+|---------|--------|
+|Caching| Frequently queried users, posts, and topics cached in Redis to reduce the database load|
+|Counters| Redis's atomic update counters like likes or views on posts or comments|
+|Leaderboards| Redis's Sorted Sets used for implementing sort topics or posts based on certain metrics|
+|Real-time Analytics| Using Redis Pub/Sub, the application can publish to a channel whenever a user views a post|
+
+#### 2.2.2 Zookeeper
+Scenario| details
+|---------|--------
+|Distributed Locks|ZooKeeper can be used to implement distributed locks in scenarios where multiple services or nodes need to access a shared resource<br> - Displaying the top 10 most-viewed posts|
+
